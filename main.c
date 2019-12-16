@@ -60,14 +60,14 @@
 #include "1wire.h"
 #include "usiuartx.h"
 #include "softi2c.h"
-#include "atsens.h"
-
+//#include "atsens.h"
 #include "ds18b20.h"
 #include "sht21.h"
 #include "si1145.h"
 #include "bh1750.h"
 #include "bmp280.h"
 #include "bme280.h"
+//#include "bright.h"
 
 
 // globals
@@ -123,7 +123,7 @@ int main(void)
 
     // internal
     // vcc+temp
-    getSens( 4 );
+    //getSens( 4 );
 
     // 1w pin init
     DDRB &= ~(DDB4);
@@ -256,7 +256,7 @@ int main(void)
 
                                     send_modbus_array( &sendbuff[0], 7 );
                                 }
-
+/*
                                 // return internal VCC
                                 if ( daddr == 0x0003 )
                                 {
@@ -296,7 +296,7 @@ int main(void)
 
                                     send_modbus_array( &sendbuff[0], 9 );
                                 }
-
+*/
                                 break; // fcode=0x03
 
                             // read input register
@@ -426,7 +426,7 @@ int main(void)
                                       send_modbus_exception( &sendbuff[0], 0x02 );
                                     }
                                 }
-
+/*
                                 // return I2C DEV VALUES
                                 if ( ( daddr >= 0x1200 ) &&
                                      ( daddr <= 0x1201 ) )
@@ -482,7 +482,7 @@ int main(void)
 
                                     send_modbus_array( &sendbuff[0], 9 );
                                 }
-
+                                */
                                 // return I2C DEV VALUES
                                 if ( daddr == 0x1220 )
                                 {
@@ -506,7 +506,7 @@ int main(void)
 
                                     send_modbus_array( &sendbuff[0], 9 );
                                 }
-
+/*
                                 // return I2C DEV VALUES
                                 if ( ( daddr >= 0x1230 ) &&
                                      ( daddr <= 0x1231 ) )
@@ -535,7 +535,7 @@ int main(void)
 
                                     send_modbus_array( &sendbuff[0], 9 );
                                 }
-                                /*
+                                */
                                 // return I2C DEV VALUES
                                 if ( ( daddr >= 0x1240 ) &&
                                      ( daddr <= 0x1242 ))
@@ -551,15 +551,32 @@ int main(void)
                                       bme280_done = 0x01;
                                     }
 
-                                    int32_t V;
-                                    
+                                    float V;
                                     if ( daddr == 0x1240 )
-                                      V = bme280_read_value( BME280_TEMP );
+                                      V = (float) bme280_read_value( BME280_TEMP )/100;
                                     if ( daddr == 0x1241 )
-                                      V = bme280_read_value( BME280_PRES );
+                                      V = (float) bme280_read_value( BME280_PRES )/100;
                                     if ( daddr == 0x1242 )
-                                      V = bme280_read_value( BME280_HUM );
-                                   
+                                      V = (float) bme280_read_value( BME280_HUM )/100;
+
+                                    sendbuff[3] = ((uint8_t*)(&V))[3];
+                                    sendbuff[4] = ((uint8_t*)(&V))[2];
+                                    sendbuff[5] = ((uint8_t*)(&V))[1];
+                                    sendbuff[6] = ((uint8_t*)(&V))[0];
+
+                                    send_modbus_array( &sendbuff[0], 9 );
+                                }
+                                /*
+                                // return ADC Light Value
+                                if ( ( daddr == 0x1250))
+                                {
+                                    // requested amount
+                                    if ( modbus[5] != 0x02 ) break;
+
+                                    sendbuff[2] = 0x04; // mslen
+                                    
+                                    int32_t V = getBrightness(5); 
+                                    
                                     sendbuff[3] = ((uint8_t*)(&V))[3];
                                     sendbuff[4] = ((uint8_t*)(&V))[2];
                                     sendbuff[5] = ((uint8_t*)(&V))[1];

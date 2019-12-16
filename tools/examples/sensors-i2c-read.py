@@ -96,7 +96,7 @@ decoder = BinaryPayloadDecoder.fromRegisters(result.registers, byteorder=Endian.
 print (decoder.decode_16bit_int(), " slave address\n")
 
 print ("")
-
+"""
 print ("0x03 0x0003\n")
 result  = client.read_holding_registers(address=0x0003, count=0x02, unit=idslave)
 decoder = BinaryPayloadDecoder.fromRegisters(result.registers, byteorder=Endian.Big, wordorder=Endian.Big)
@@ -156,7 +156,7 @@ try:
 except:
 
   print ("No SI1145 found.")
-
+"""
 try:
 
   print ("")
@@ -169,7 +169,7 @@ try:
 except:
 
   print ("No BH1750 found.")
-
+"""
 try:
   print ("")
 
@@ -192,7 +192,7 @@ try:
 except:
 
   print ("No BMP280 found.")
-
+"""
 try:
   print ("")
 
@@ -224,5 +224,20 @@ try:
 except:
 
   print ("No BME280 found.")
+
+try:
+  print ("")
+
+  print ("0x04 0x1250\n")
+  result  = client.read_input_registers(address=0x1250, count=0x02, unit=idslave)
+  decoder = BinaryPayloadDecoder.fromRegisters(result.registers, byteorder=Endian.Big, wordorder=Endian.Big)
+  val = float(decoder.decode_32bit_int())
+  print (" %.2f Light Value" % (val))
+  
+  print ("")
+
+except:
+
+  print ("No Light Sensor found.")
 
 client.close()

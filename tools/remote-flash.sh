@@ -14,3 +14,5 @@ sleep .5
 # switch back to main
 ./examples/bootmode-switch.py $ADDR
 
+# execute a sensor read after flash
+./examples/sensors-read.py $ADDR
