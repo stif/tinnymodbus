@@ -56,8 +56,8 @@
 #define BME280_PRES 0x01
 #define BME280_HUM  0x02
 
-#define BME280_ADDRESS 0x76 // Sensor Modul from AZ Delivery has Address 0x76!
-//#define BME280_ADDRESS 0x77
+//#define BME280_ADDRESS 0x76 // Sensor Modul from AZ Delivery has Address 0x76!
+#define BME280_ADDRESS 0x77
 
 
 // REGISTER ADDRESS DEFINITION

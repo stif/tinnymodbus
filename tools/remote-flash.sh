@@ -2,7 +2,7 @@
 ADDR=1
 
 # switch into bootloader
-./examples/mainmode-switch.py $ADDR
+python ./examples/mainmode-switch.py $ADDR
 
 sleep .5
 
@@ -12,7 +12,7 @@ sleep .5
 sleep .5
 
 # switch back to main
-./examples/bootmode-switch.py $ADDR
+python ./examples/bootmode-switch.py $ADDR
 
 # execute a sensor read after flash
-./examples/sensors-read.py $ADDR
+python ./examples/sensors-read.py $ADDR

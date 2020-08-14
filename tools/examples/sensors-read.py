@@ -1,4 +1,5 @@
 #!/usr/bin/python
+"""#!/home/stif/.platformio/penv/bin/python"""
 
 
 
@@ -23,6 +24,8 @@ log = logging.getLogger()
 log.setLevel(logging.INFO)
 
 client = ModbusClient(method='rtu', port='/dev/ttyUSB0', baudrate=38400, timeout=1.5)
+#client = ModbusClient(method='rtu', port='/dev/ttyUSB0', baudrate=19200, timeout=1.5)
+#client = ModbusClient(method='rtu', port='/dev/ttyUSB0', baudrate=9600, timeout=1.5)
 client.connect()
 
 idslave = 0x01

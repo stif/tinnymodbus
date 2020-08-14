@@ -65,6 +65,7 @@ log.setLevel(logging.INFO)
 
 # create connection (main mode is 38400)
 client = ModbusClient(method='rtu', port='/dev/ttyUSB0', baudrate=38400, timeout=1.5)
+#client = ModbusClient(method='rtu', port='/dev/ttyUSB0', baudrate=19200, timeout=1.5)
 client.connect()
 
 try:

@@ -67,7 +67,7 @@
 //#define SYSTEM_CLOCK     1000000
 
 //#define BAUDRATE 115200
-////#define BAUDRATE  57600
+//#define BAUDRATE  57600
 #define BAUDRATE  38400
 //#define BAUDRATE  28800
 //#define BAUDRATE  19200
