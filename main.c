@@ -71,8 +71,10 @@
 
 
 // globals
+#ifdef ATSENS_H
 extern float sensVcc;
 extern float sensTmp;
+#endif
 extern uint8_t IDModbus;
 
 uint8_t si1145_done = 0x00;
